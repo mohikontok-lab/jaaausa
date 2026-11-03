@@ -29,9 +29,12 @@ body {
 .site-nav { display: flex; flex-wrap: wrap; gap: 1.25rem; }
 .site-nav a { color: #fff; text-decoration: none; font-family: Arial, Helvetica, sans-serif; }
 .site-nav a:hover { text-decoration: underline; }
-.site-banner img { width: 100%; height: auto; display: block; }
+.site-banner { background: #005751; }
+.site-banner img { width: 100%; max-width: 960px; height: auto; display: block; margin: 0 auto; }
+.banner-caption { background: #005751; color: #fff; text-align: center; font-size: 1.4rem; font-weight: 700; margin: 0; padding: 0.75rem 1rem 1rem; }
 @media (max-width: 600px) {
   .site-banner img { height: 100px; object-fit: cover; object-position: center; }
+  .banner-caption { font-size: 1.1rem; }
 }
 main { max-width: 860px; margin: 0 auto; padding: 1.5rem; }
 section { margin-bottom: 2.5rem; }
