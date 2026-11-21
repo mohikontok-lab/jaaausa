@@ -60,3 +60,8 @@ h2 { color: var(--accent); border-bottom: 2px solid var(--border); padding-botto
   font-family: Arial, Helvetica, sans-serif;
   color: #4b5563;
 }
+
+.site-footer p.footer-social { display: flex; justify-content: center; gap: 1.1rem; margin: 0.6rem 0 0.3rem; }
+.footer-social a { display: inline-flex; line-height: 0; color: var(--accent); }
+.footer-social a:hover { color: var(--accent-soft); }
+.footer-social svg { width: 28px; height: 28px; }
