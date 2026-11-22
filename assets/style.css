@@ -1,19 +1,65 @@
 :root {
   --bg: #fdfcf7;
-  --text: #1f2937;
-  --accent: #1b5e3b;
-  --accent-soft: #2e7d52;
-  --panel: #ffffff;
-  --border: #d9d2c4;
+  --text: #14181f;
+  --accent: #14532d;
+  --accent-soft: #166534;
+  --panel: #fffdf6;
+  --border: #cfc8b8;
 }
 * { box-sizing: border-box; }
 body {
   margin: 0;
   font-family: Georgia, "Times New Roman", serif;
-  background: var(--bg);
+  font-size: 18px;
+  line-height: 1.7;
   color: var(--text);
-  line-height: 1.6;
+  /* Dynamic green field: deep green gradient base */
+  background: linear-gradient(180deg, #0a3d1e 0%, #14532d 30%, #166534 62%, #0b3d20 100%);
 }
+/* Drifting sunlight glows over the field (slow, gentle motion) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(600px 400px at 18% 8%, rgba(187, 247, 208, 0.28), transparent 62%),
+    radial-gradient(520px 360px at 86% 28%, rgba(134, 239, 172, 0.20), transparent 62%),
+    radial-gradient(760px 520px at 50% 92%, rgba(34, 197, 94, 0.18), transparent 62%);
+  animation: field-drift 48s ease-in-out infinite alternate;
+}
+/* Grass silhouette along the bottom of the field, swaying gently */
+body::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 170px;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='120' viewBox='0 0 480 120'%3E%3Cpath fill='%234ade80' fill-opacity='0.30' d='M0 120 L0 84 L12 58 L24 88 L36 44 L48 86 L60 66 L72 92 L84 52 L96 86 L108 70 L120 96 L132 40 L144 88 L156 62 L168 94 L180 48 L192 86 L204 72 L216 98 L228 56 L240 88 L252 64 L264 96 L276 44 L288 88 L300 68 L312 94 L324 52 L336 88 L348 66 L360 98 L372 58 L384 88 L396 70 L408 96 L420 46 L432 88 L444 64 L456 92 L468 60 L480 86 L480 120 Z'/%3E%3Cpath fill='%23052e16' fill-opacity='0.88' d='M0 120 L0 96 L14 66 L28 98 L42 58 L56 100 L70 78 L84 104 L98 64 L112 100 L126 82 L140 108 L154 56 L168 102 L182 74 L196 106 L210 60 L224 100 L238 80 L252 110 L266 66 L280 102 L294 76 L308 108 L322 62 L336 100 L350 78 L364 106 L378 68 L392 102 L406 80 L420 110 L434 58 L448 100 L462 76 L480 104 L480 120 Z'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: bottom left;
+  background-size: auto 170px;
+  transform-origin: 50% 100%;
+  animation: field-sway 10s ease-in-out infinite alternate;
+}
+@keyframes field-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(2%, 1.5%, 0) scale(1.05); }
+}
+@keyframes field-sway {
+  from { transform: rotate(-0.6deg); }
+  to { transform: rotate(0.6deg); }
+}
+/* Motion off for people who prefer it: the field stays a calm static green */
+@media (prefers-reduced-motion: reduce) {
+  body::before, body::after { animation: none; }
+}
+/* Visible keyboard focus, for low-vision navigation */
+:focus-visible { outline: 3px solid #b45309; outline-offset: 2px; }
 .site-header {
   display: flex;
   flex-wrap: wrap;
@@ -36,14 +82,26 @@ body {
   .site-banner img { height: 100px; object-fit: cover; object-position: center; }
   .banner-caption { font-size: 1.1rem; }
 }
-main { max-width: 860px; margin: 0 auto; padding: 1.5rem; }
-section { margin-bottom: 2.5rem; }
-.hero { text-align: center; padding: 2rem 0 1rem; }
+main { max-width: 860px; margin: 0 auto; padding: 1.5rem 1.5rem 2.5rem; }
+/* Every section is its own solid, high-contrast panel on the field,
+   so text never sits on the moving background */
+section {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28);
+}
+.hero { text-align: center; padding: 2rem 1.5rem 1.5rem; }
 .hero h1 { font-size: 2.6rem; margin-bottom: 0.25rem; color: var(--accent); }
 .tagline { font-size: 1.25rem; font-style: italic; color: var(--accent-soft); }
-h2 { color: var(--accent); border-bottom: 2px solid var(--border); padding-bottom: 0.3rem; font-family: Arial, Helvetica, sans-serif; }
-.card { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
-.btn { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; font-family: Arial, Helvetica, sans-serif; font-weight: 700; padding: 0.75rem 1.5rem; border-radius: 8px; }
+h2 { color: var(--accent); border-bottom: 2px solid #b9c4ae; padding-bottom: 0.3rem; font-family: Arial, Helvetica, sans-serif; }
+h3 { color: var(--accent); }
+main a { color: #14532d; text-decoration: underline; }
+main a:hover { color: #0b3d20; }
+.card { background: #ffffff; border: 2px solid #c9d2bd; border-radius: 10px; padding: 1rem; margin-bottom: 1rem; }
+.btn { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 1.05rem; padding: 0.85rem 1.6rem; border-radius: 8px; }
 .icon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .icon-card { margin: 0; }
 .icon-card img { width: 100%; height: 200px; object-fit: cover; display: block; border-radius: 8px; }
@@ -51,17 +109,19 @@ h2 { color: var(--accent); border-bottom: 2px solid var(--border); padding-botto
 @media (max-width: 600px) {
   .icon-grid { grid-template-columns: 1fr; }
 }
-.btn:hover { background: var(--accent-soft); }
+.btn:hover { background: #0b3d20; }
 .card h3 { margin-top: 0; }
 .site-footer {
   text-align: center;
   padding: 1.5rem;
-  border-top: 2px solid var(--border);
+  border-top: 3px solid #f2c94c;
+  background: #0b3d20;
   font-family: Arial, Helvetica, sans-serif;
-  color: #4b5563;
+  color: #e7f5e9;
 }
+.site-footer a { color: #ffffff; }
 
 .site-footer p.footer-social { display: flex; justify-content: center; gap: 1.1rem; margin: 0.6rem 0 0.3rem; }
-.footer-social a { display: inline-flex; line-height: 0; color: var(--accent); }
-.footer-social a:hover { color: var(--accent-soft); }
+.footer-social a { display: inline-flex; line-height: 0; color: #ffffff; }
+.footer-social a:hover { color: #f2c94c; }
 .footer-social svg { width: 28px; height: 28px; }
